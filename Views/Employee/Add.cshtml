@@ -1,0 +1,57 @@
+﻿@model VCSSYSTEMS.Models.UpdateEmployeeViewModel
+@{
+}
+<h1>Add Employee</h1>
+<form method="post" action="Add" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="" class="form-label">Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Email Address</label>
+        <input type="email" class="form-control" asp-for="Email">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Date Of Birth</label>
+        <input type="date" class="form-control" asp-for="DateOfBirth">
+    </div>
+    
+    <div>
+        <label>Gender:</label>
+        @Html.RadioButtonFor(m => m.Gender, "Male") Male
+        @Html.RadioButtonFor(m => m.Gender, "Female") Female
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Qualification</label><br>
+        <input type="checkbox" asp-for="Qualification" value="Diploma"> Diploma<br>
+        <input type="checkbox" asp-for="Qualification" value="Degree"> Degree<br>
+        <input type="checkbox" asp-for="Qualification" value="Master Degree"> Master Degree
+    </div>
+    <div class="mb-3">
+        <label for="ImagePath" class="form-label">Upload Image</label>
+        <input type="file" class="form-control" asp-for="ImagePath" accept="image/*" id="imageInput">
+    </div>
+    <div class="mb-3">
+        <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 150px; display: none;" />
+    </div>
+    
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form> 
+<script>
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+        var imagePreview = document.getElementById('imagePreview');
+        var file = event.target.files[0];
+
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.style.display = 'none';
+        }
+    });
+</script>
